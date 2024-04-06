@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Actor>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="color:aliceblue">@Html.DisplayNameFor(model => model.picUrl)</th>
+                    <th style="color:aliceblue">@Html.DisplayNameFor(model => model.Name)</th>
+                    <th style="color:aliceblue">@Html.DisplayNameFor(model => model.bio)</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+
+                    <th style="color:aliceblue">Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="@item.picUrl" alt="@item.Name" style="max-width:150px"/>
+                        </td>
+                        <td class="align-middle" style="color:aliceblue">
+                            @Html.DisplayFor(modelItem=>item.Name)
+                        </td>
+                        <td class="align-middle" style="color:aliceblue; width:300px" >
+                            @Html.DisplayFor(modelItem => item.bio)
+                        </td>
+                        <td class="align-middle">
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+
+                            <a class="btn btn-outline-primary" asp-controller="Actors" asp-action="Edit" asp-route-id="@item.Id"> <i class="bi bi-pencil-square"></i>Edit</a>
+                            <a class="btn btn-outline-info" asp-controller="Actors" asp-action="Details" asp-route-id="@item.Id"> <i class="bi bi-eye"></i>Details</a>
+                            <a class="btn btn-danger" asp-controller="Actors" asp-action="Delete" asp-route-id="@item.Id"> <i class="bi bi-trash"></i>Delete</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@await Html.PartialAsync("_CreateItem","Actors")

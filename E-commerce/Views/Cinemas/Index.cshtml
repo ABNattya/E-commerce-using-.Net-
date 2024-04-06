@@ -1,0 +1,49 @@
+﻿@model IEnumerable<cinema>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="color:aliceblue">@Html.DisplayNameFor(model => model.logoUrl)</th>
+                    <th style="color:aliceblue">@Html.DisplayNameFor(model => model.Name)</th>
+                    <th style="color:aliceblue">@Html.DisplayNameFor(model => model.discription)</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        
+                    <th style="color:aliceblue">Actions</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img class="rounded-circle" src="@item.logoUrl" alt="@item.Name" style="max-width:150px" />
+                        </td>
+                        <td class="align-middle" style="color:aliceblue">
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td class="align-middle" style="color:aliceblue">
+                            @Html.DisplayFor(modelItem => item.discription)
+                        </td>
+                        <td class="align-middle">
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+
+                            <a class="btn btn-outline-primary" asp-controller="Cinemas" asp-action="Edit" asp-route-id="@item.Id"> <i class="bi bi-pencil-square"></i>Edit</a>
+                            <a class="btn btn-outline-info" asp-controller="Cinemas" asp-action="Details" asp-route-id="@item.Id"> <i class="bi bi-eye"></i>Details</a>
+                            <a class="btn btn-danger" asp-controller="Cinemas" asp-action="Delete" asp-route-id="@item.Id"> <i class="bi bi-trash"></i>Delete</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+@await Html.PartialAsync("_CreateItem", "Cinemas")

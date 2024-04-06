@@ -1,0 +1,51 @@
+﻿@model Producer
+@{
+    ViewData["Title"] = "Edit Producer";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Edit Producer</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group text-center">
+                        <img class="border-info rounded-circle img-thumbnail" style="max-width:150px;" id="Pictureurlpreview" src="@Model.picUrl" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="picUrl" class="control-label"></label>
+                        <input asp-for="picUrl" class="form-control" />
+                        <span asp-validation-for="picUrl" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="bio" class="control-label"></label>
+                        <input asp-for="bio" class="form-control" />
+                        <span asp-validation-for="bio" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-outline-success float-right" />
+                        <a class="btn btn-outline-secondary" asp-action="Index">Show All Producer</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $("#picUrl").on("change", function () {
+            var output = document.getElementById('Pictureurlpreview');
+            output.src = $(this).val();
+        });
+    </script>
+}
